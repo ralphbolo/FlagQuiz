@@ -192,7 +192,7 @@ public class MainActivityFragment extends Fragment {
     }
 
     private String getCountryName(String name) {
-        return name.substring(name.indexOf('-' + 1)).replace('-', ' ');
+        return name.substring(name.indexOf('-') + 1).replace('_', ' ');
     }
 
     private void animate(boolean animateOut) {
