@@ -249,24 +249,16 @@ public class MainActivityFragment extends Fragment {
                 disableButtons();
 
                 if(correctAnswers == FLAGS_IN_QUIZ) {
-                    DialogFragment quizResults = new DialogFragment() {
-                        @Override
-                        public Dialog onCreateDialog(Bundle bundle) {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                            builder.setMessage(getString(R.string.results, totalGuesses, (1000 / (double) totalGuesses)));
+                    new AlertDialog.Builder(getContext())
+                            .setMessage(getString(R.string.results, totalGuesses, (1000 / (double) totalGuesses)))
+                            .setPositiveButton(R.string.reset_quiz, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    resetQuiz();
+                                }
+                                })
+                            .setCancelable(false)
+                            .show();
 
-                            builder.setPositiveButton(R.string.reset_quiz, new DialogInterface.OnClickListener() {
-                               public void onClick(DialogInterface dialog, int id) {
-                                   resetQuiz();
-                               }
-                            });
-
-                            return  builder.create();
-                        }
-                    };
-
-                    quizResults.setCancelable(false);
-                    quizResults.show(getFragmentManager(), "quiz results");
                 } else {
                     handler.postDelayed(new Runnable() {
                         @Override
